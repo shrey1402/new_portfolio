@@ -4,11 +4,10 @@
 
 @layer base {
   body {
-    @apply antialiased overflow-x-hidden bg-[#0f0f0f] text-white;
+    @apply antialiased bg-[#0f0f0f] text-white;
   }
 }
 
-/* Hide scrollbar for cleaner look */
 ::-webkit-scrollbar {
   display: none;
 }

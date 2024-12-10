@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Technologies from './components/Technologies';
-import Services from './components/Services';
-import Reviews from './components/Reviews';
-import Contact from './components/Contact';
-import WhatsAppButton from './components/shared/WhatsAppButton';
+import LoadingSpinner from './components/shared/LoadingSpinner';
+
+// Lazy load non-critical components
+const Technologies = lazy(() => import('./components/Technologies'));
+const Services = lazy(() => import('./components/Services'));
+const Reviews = lazy(() => import('./components/Reviews'));
+const Contact = lazy(() => import('./components/Contact'));
+const WhatsAppButton = lazy(() => import('./components/shared/WhatsAppButton'));
 
 function App() {
   return (
@@ -13,12 +16,14 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <Technologies />
-        <Services />
-        <Reviews />
-        <Contact />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Technologies />
+          <Services />
+          <Reviews />
+          <Contact />
+          <WhatsAppButton phoneNumber="917046110694" />
+        </Suspense>
       </main>
-      <WhatsAppButton phoneNumber="917046110694" />
     </div>
   );
 }

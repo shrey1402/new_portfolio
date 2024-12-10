@@ -1,8 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
-import AnimatedIcon from './AnimatedIcon';
-import AnimatedGradientText from './AnimatedGradientText';
+import AnimatedStar from './AnimatedStar';
 
 interface SectionTitleProps {
   title: string;
@@ -15,15 +13,14 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="flex items-center mb-12"
+      className="flex items-center justify-center mb-8"
     >
-      <AnimatedIcon
-        icon={<Star className="w-8 h-8 fill-current text-yellow-400" />}
-        className="mr-4"
-      />
-      <h2 className="text-4xl font-bold">
-        <AnimatedGradientText>{title}</AnimatedGradientText>
-      </h2>
+      <div className="flex items-center">
+        <AnimatedStar />
+        <h2 className="ml-3 text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#FF3366] to-[#4A90E2] text-transparent bg-clip-text">
+          {title}
+        </h2>
+      </div>
     </motion.div>
   );
 };

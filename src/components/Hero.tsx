@@ -1,108 +1,133 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Player } from '@lottiefiles/react-lottie-player';
-import developerAnimation from '../assets/developer-animation.json';
-import BackgroundAnimations from './BackgroundAnimations';
-
-const mainTextVariants = {
-  initial: { 
-    opacity: 0,
-    y: 60,
-    scale: 0.6
-  },
-  animate: { 
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      damping: 12,
-      stiffness: 100,
-      duration: 0.8
-    }
-  }
-};
 
 const Hero = () => {
-  const [isClient, setIsClient] = useState(false);
+  const wordVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.5 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.8,
+        ease: [0.43, 0.13, 0.23, 0.96],
+      },
+    }),
+  };
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0f0f0f] pb-16">
-      {/* Background Lottie Animation - Only render on client side */}
-      {isClient && (
-        <div className="absolute inset-0 z-0">
-          <Player
-            autoplay
-            loop
-            src={developerAnimation}
-            style={{ width: '100%', height: '100%', opacity: 0.3 }}
-            background="transparent"
-            speed={0.45}
-            rendererSettings={{
-              preserveAspectRatio: 'xMidYMid slice',
-              clearCanvas: false,
-              progressiveLoad: true,
-              hideOnTransparent: true
-            }}
-          />
-        </div>
-      )}
-
-      {/* Simplified Background Animations */}
-      <div className="absolute inset-0 z-[1] pointer-events-none">
-        <motion.div
-          className="absolute w-full h-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
-          transition={{ duration: 1 }}
-        >
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-[#FF3366]/20 to-[#4A90E2]/20 rounded-full filter blur-3xl" />
-          <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-gradient-to-r from-[#4A90E2]/20 to-[#FF3366]/20 rounded-full filter blur-3xl" />
-        </motion.div>
-      </div>
-
-      {/* Main Content */}
+    <section className="relative min-h-screen flex items-center justify-center bg-[#0f0f0f] pb-16">
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center space-y-8">
+        <div className="text-center space-y-12">
           <motion.div
-            initial="initial"
-            animate="animate"
-            variants={mainTextVariants}
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
             className="space-y-4"
           >
-            <h1 className="text-7xl md:text-[10rem] font-bold leading-none tracking-tighter">
-              <span className="inline-block bg-gradient-to-r from-[#FF3366] via-[#FF6B6B] to-[#FFA07A] text-transparent bg-clip-text animate-gradient">
-                From vision
-              </span>
-            </h1>
-            <h1 className="text-7xl md:text-[10rem] font-bold leading-none tracking-tighter">
-              <span className="inline-block bg-gradient-to-r from-[#4A90E2] via-[#67B8F4] to-[#B4E7FF] text-transparent bg-clip-text animate-gradient">
-                to execution...
-              </span>
-            </h1>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.3 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 1,
+                ease: [0.43, 0.13, 0.23, 0.96],
+              }}
+              className="overflow-hidden"
+            >
+              <motion.h1 
+                className="text-7xl md:text-[8rem] font-bold leading-none tracking-tighter"
+                initial={{ y: 100 }}
+                animate={{ y: 0 }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.43, 0.13, 0.23, 0.96],
+                }}
+              >
+                <motion.span
+                  className="inline-block text-[#FF3366]"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  From vision
+                </motion.span>
+              </motion.h1>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.3 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                delay: 0.2,
+                duration: 1,
+                ease: [0.43, 0.13, 0.23, 0.96],
+              }}
+              className="overflow-hidden"
+            >
+              <motion.h1 
+                className="text-7xl md:text-[8rem] font-bold leading-none tracking-tighter"
+                initial={{ y: 100 }}
+                animate={{ y: 0 }}
+                transition={{
+                  delay: 0.2,
+                  duration: 0.8,
+                  ease: [0.43, 0.13, 0.23, 0.96],
+                }}
+              >
+                <motion.span
+                  className="inline-block text-[#4A90E2]"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  to execution...
+                </motion.span>
+              </motion.h1>
+            </motion.div>
           </motion.div>
 
-          <motion.p 
-            className="text-2xl md:text-4xl font-light leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
+            transition={{
+              delay: 0.6,
+              duration: 0.8,
+              ease: [0.43, 0.13, 0.23, 0.96],
+            }}
+            className="text-2xl md:text-4xl font-light leading-relaxed space-x-2"
           >
-            <span className="text-[#FF3366]">Let's code it</span>
-            <span className="text-white/80">, </span>
-            <span className="text-[#FF6B6B]">create it</span>
-            <span className="text-white/80">, and </span>
-            <span className="text-[#4A90E2]">make it innovative</span>
-          </motion.p>
+            {[
+              { text: "Let's code it", color: "text-[#FF3366]" },
+              { text: ",", color: "text-white/80" },
+              { text: "create it", color: "text-[#FF6B6B]" },
+              { text: ", and", color: "text-white/80" },
+              { text: "make it innovative", color: "text-[#4A90E2]" },
+            ].map((item, index) => (
+              <motion.span
+                key={index}
+                variants={wordVariants}
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ scale: 1.05 }}
+                className={`inline-block ${item.color}`}
+              >
+                {item.text}
+              </motion.span>
+            ))}
+          </motion.div>
         </div>
       </div>
-
-      {/* Simplified gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0f0f0f]/50 to-[#0f0f0f] z-[2]" />
     </section>
   );
 };

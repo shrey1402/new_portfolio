@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Code2, Database, Globe, Layout, Server, Smartphone } from 'lucide-react';
 import TechnologyCard from './TechnologyCard';
 import SectionTitle from '../shared/SectionTitle';
-import BackgroundGradient from '../shared/BackgroundGradient';
+import SectionContainer from '../shared/SectionContainer';
 
 const technologies = [
   {
@@ -51,25 +51,20 @@ const Technologies = () => {
   };
 
   return (
-    <section className="relative py-32 bg-[#0f0f0f]">
-      <BackgroundGradient />
-      
-      <div className="container mx-auto px-6 relative z-10">
-        <SectionTitle title="Technologies" />
-
-        <div className="space-y-4">
-          {technologies.map((tech, index) => (
-            <TechnologyCard
-              key={index}
-              {...tech}
-              isOpen={openDropdown === index}
-              onClick={() => handleDropdownClick(index)}
-              index={index}
-            />
-          ))}
-        </div>
+    <SectionContainer>
+      <SectionTitle title="Technologies" />
+      <div className="space-y-4">
+        {technologies.map((tech, index) => (
+          <TechnologyCard
+            key={index}
+            {...tech}
+            isOpen={openDropdown === index}
+            onClick={() => handleDropdownClick(index)}
+            index={index}
+          />
+        ))}
       </div>
-    </section>
+    </SectionContainer>
   );
 };
 
